@@ -7,13 +7,70 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
-    pass
+    size = len(input_list)
+    pivot = find_pivot(input_list, 0, size - 1)
+
+    if pivot == -1:
+        return
+
+    if input_list[pivot] == number:
+        return pivot
+
+    if input_list[0] <= number:
+        return binary_search(input_list, 0, pivot - 1, number)
+
+    return binary_search(input_list, pivot + 1, size - 1, number)
+
+
+def find_pivot(input_list, start, end):
+    """
+    Find the pivot number
+    """
+    if start > end:
+        return -1
+
+    if start == end:
+        return start
+
+    mid = int((start + end) / 2)
+
+    if mid < end and input_list[mid] > input_list[mid + 1]:
+        return mid
+
+    if mid > start and input_list[mid] < input_list[mid - 1]:
+        return mid - 1
+
+    if input_list[start] >= input_list[mid]:
+        return find_pivot(input_list, start, mid - 1)
+
+    return find_pivot(input_list, mid + 1, end)
+
+
+def binary_search(input_list, start, end, number):
+    """
+    Apply binary search algorithm on input list based on the located pivot
+    """
+    if start > end:
+        return -1
+
+    mid = int((start + end) / 2)
+
+    if input_list[mid] == number:
+        return mid
+
+    if input_list[mid] < number:
+        return binary_search(input_list, mid + 1, end, number)
+
+    if input_list[mid] > number:
+        return binary_search(input_list, start, mid - 1, number)
+
 
 def linear_search(input_list, number):
     for index, element in enumerate(input_list):
         if element == number:
             return index
     return -1
+
 
 def test_function(test_case):
     input_list = test_case[0]
@@ -22,6 +79,7 @@ def test_function(test_case):
         print("Pass")
     else:
         print("Fail")
+
 
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6])
 test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
