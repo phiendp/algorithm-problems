@@ -5,7 +5,24 @@ def sort_012(input_list):
     Args:
        input_list(list): List to be sorted
     """
-    pass
+    idx = 0
+    next_0 = 0
+    next_2 = len(input_list) - 1
+
+    while idx <= next_2:
+        if input_list[idx] == 0:
+            input_list[idx] = input_list[next_0]
+            input_list[next_0] = 0
+            next_0 += 1
+            idx += 1
+        elif input_list[idx] == 2:
+            input_list[idx] = input_list[next_2]
+            input_list[next_2] = 2
+            next_2 -= 1
+        else:
+            idx += 1
+
+    return input_list
 
 
 def test_function(test_case):
