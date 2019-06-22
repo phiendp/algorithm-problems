@@ -65,7 +65,6 @@ class Router:
 
 
 # Create the router and add a route
-# Remove the 'not found handler' if you did not implement this
 router = Router("root handler", "not found handler")
 router.add_handler("/home/about", "about handler")  # add a route
 
